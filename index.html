@@ -11,274 +11,436 @@
   <meta property="og:url" content="https://won.soulstudio.jp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #1C1C8B;
+      --white: #fff;
+      --white-90: rgba(255,255,255,0.9);
+      --white-50: rgba(255,255,255,0.6);
+      --white-30: rgba(255,255,255,0.45);
+      --white-15: rgba(255,255,255,0.15);
+      --white-08: rgba(255,255,255,0.08);
+      --white-05: rgba(255,255,255,0.05);
     }
 
     body {
       font-family: 'Noto Sans JP', sans-serif;
-      background: #f8f8f8;
-      color: #1a1a1a;
+      background: #e8e8e8;
+      color: var(--white);
       min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px 16px;
       -webkit-font-smoothing: antialiased;
     }
 
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-      max-width: 400px;
-      width: 100%;
+    .page {
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
       overflow: hidden;
     }
 
-    .card-header {
-      padding: 48px 32px 32px;
-      text-align: center;
+    /* Morse texture */
+    .page::before {
+      content: '.- . / -.-. ---. . .-- / .- - / -.. .--. --- . .-. - / .-- -- . .-. ..- .-... . .-.. / .- . / -.-. ---. . .-- / .- - / -..';
+      position: absolute;
+      top: 16px;
+      right: 12px;
+      width: 160px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: 3px;
+      line-height: 2.4;
+      word-break: break-all;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .avatar {
-      width: 104px;
-      height: 104px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #f0f0f0;
-      margin-bottom: 20px;
+    .inner {
+      padding: 36px 28px 52px;
+      position: relative;
+      z-index: 1;
     }
 
-    .name {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin-bottom: 4px;
-    }
-
-    .title {
-      font-size: 13px;
-      color: #888;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-    }
-
-    .company {
-      display: inline-flex;
+    /* Profile */
+    .profile {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-      font-size: 13px;
-      color: #666;
-      font-weight: 400;
+      text-align: center;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fade 0.5s ease 0.1s forwards;
     }
 
-    .company-logo {
-      height: 18px;
+    .top-logo {
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fade 0.5s ease 0.05s forwards;
+    }
+
+    .top-logo img {
+      height: 30px;
       width: auto;
     }
 
-    .divider {
-      height: 1px;
-      background: #f0f0f0;
-      margin: 0 32px;
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--white-15);
+      margin-bottom: 20px;
     }
 
-    .links {
-      padding: 20px 32px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .identity {}
 
-    .link-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: #1a1a1a;
-      font-size: 14px;
+    .role {
+      font-size: 10px;
       font-weight: 400;
-      transition: background 0.15s ease;
+      letter-spacing: 0.18em;
+      color: var(--white-50);
+      margin-bottom: 8px;
     }
 
-    .link-item:hover,
-    .link-item:active {
-      background: #f5f5f5;
+    .name-ja {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      margin-bottom: 6px;
     }
 
-    .link-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    .name-reading {
+      font-size: 11px;
+      font-weight: 200;
+      color: var(--white-30);
+      letter-spacing: 0.06em;
     }
 
-    .link-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .link-icon--email { background: #e8f4f8; }
-    .link-icon--email svg { color: #2196F3; }
-
-    .link-icon--facebook { background: #e8eaf6; }
-    .link-icon--facebook svg { color: #1877F2; }
-
-    .link-icon--linkedin { background: #e3f2fd; }
-    .link-icon--linkedin svg { color: #0A66C2; }
-
-    .link-icon--soulchat { background: #fce4ec; }
-    .link-icon--soulchat svg { color: #E91E63; }
-
-    .link-icon--website { background: #e8f5e9; }
-    .link-icon--website svg { color: #43A047; }
-
-    .link-label {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .link-label-main {
-      font-weight: 500;
-      font-size: 14px;
-    }
-
-    .link-label-sub {
-      font-size: 12px;
-      color: #aaa;
-      font-weight: 300;
-    }
-
-    .actions {
-      padding: 8px 32px 36px;
+    /* Save button (hero area) */
+    .hero-cta {
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fade 0.5s ease 0.3s forwards;
     }
 
     .save-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
       padding: 14px;
-      background: #1a1a1a;
-      color: #fff;
-      border: none;
+      background: var(--white-08);
+      color: var(--white-90);
+      border: 1px solid var(--white-15);
       border-radius: 12px;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 400;
       font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.1em;
       cursor: pointer;
-      transition: background 0.15s ease;
+      transition: background 0.2s;
     }
 
-    .save-btn:hover {
-      background: #333;
+    .save-btn:active { transform: scale(0.98); }
+
+    @media (hover:hover) {
+      .save-btn:hover { background: var(--white-15); }
     }
 
     .save-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
+      opacity: 0.7;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--white-08);
+      margin-bottom: 28px;
+    }
+
+    /* Company */
+    .org {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fade 0.5s ease 0.3s forwards;
+    }
+
+    .org-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--white-05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .org-icon svg {
+      width: 16px;
+      height: 16px;
+      color: var(--white-30);
+    }
+
+    .org-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .org-address {
+      font-size: 11px;
+      color: var(--white-50);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* Divider 2 */
+    .divider2 {
+      height: 1px;
+      background: var(--white-08);
+      margin-bottom: 8px;
+    }
+
+    /* Links */
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      animation: fade 0.5s ease 0.35s forwards;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 10px 14px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--white);
+      transition: background 0.15s;
+      width: 100%;
+    }
+
+    .link:active {
+      background: var(--white-05);
+      transform: scale(0.98);
+    }
+
+    @media (hover:hover) {
+      .link:hover { background: var(--white-05); }
+    }
+
+    .link-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--white-05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .link-dot svg {
+      width: 16px;
+      height: 16px;
+      color: var(--white-30);
+    }
+
+    .link-text {
+      min-width: 0;
+    }
+
+    .link-primary {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .link-secondary {
+      font-size: 11px;
+      color: var(--white-50);
+      font-weight: 300;
+      margin-top: 1px;
+    }
+
+    /* Footer morse */
+    .footer-morse {
+      padding: 40px 28px 24px;
+      text-align: center;
+      opacity: 0;
+      animation: fade 0.5s ease 0.5s forwards;
+    }
+
+    .morse-line {
+      font-size: 9px;
+      color: rgba(255,255,255,0.1);
+      letter-spacing: 4px;
+      font-weight: 200;
+      line-height: 2;
+      user-select: none;
+    }
+
+    /* Animation */
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Desktop */
+    @media (min-width: 480px) {
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 32px 16px;
+      }
+      .page {
+        min-height: auto;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="card-header">
-    <!-- TODO: Replace with actual profile image -->
-    <img src="assets/won_profile_face.jpeg" alt="元 志喜" class="avatar">
-    <div class="name">元 志喜</div>
-    <div class="title">代表取締役CEO</div>
-    <div class="company">
-      <!-- TODO: Replace with actual company logo -->
-      <img src="assets/soulstudio_logo.png" alt="SoulStudio" class="company-logo">
-      <span>SoulStudio</span>
+<div class="page">
+  <div class="inner">
+
+    <div class="top-logo">
+      <img src="logo_white.png" alt="SoulStudio">
     </div>
+
+    <div class="profile">
+      <img src="assets/won_profile_face.jpeg" alt="元 志喜" class="avatar">
+      <div class="identity">
+        <div class="role">代表取締役 CEO</div>
+        <div class="name-ja">元 志喜</div>
+        <div class="name-reading">ウォン ジヒ / Won Jihee</div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <button class="save-btn" onclick="downloadVCard()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+        </svg>
+        連絡先を保存
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="links">
+      <a href="https://maps.google.com/?q=東京都文京区本郷6-25-14" target="_blank" rel="noopener" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">SoulStudio株式会社</div>
+          <div class="link-secondary">東京都文京区本郷 6-25-14</div>
+        </div>
+      </a>
+
+      <a href="mailto:won@soulstudio.jp" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">Email</div>
+          <div class="link-secondary">won@soulstudio.jp</div>
+        </div>
+      </a>
+
+      <a href="tel:+818067950977" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">TEL</div>
+          <div class="link-secondary">+81 80 6795 0977</div>
+        </div>
+      </a>
+
+      <a href="https://www.facebook.com/jiheeone" target="_blank" rel="noopener" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--white-30)">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">Facebook</div>
+          <div class="link-secondary">jiheeone</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/jiheeone/" target="_blank" rel="noopener" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--white-30)">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">LinkedIn</div>
+          <div class="link-secondary">jiheeone</div>
+        </div>
+      </a>
+
+      <a href="https://soulchat.jp/" target="_blank" rel="noopener" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--white-30)">
+            <path d="M12 2C7.58 2 4 5.58 4 10c0 3.03 1.64 5.64 4 6.93V20a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3.07c2.36-1.29 4-3.9 4-6.93 0-4.42-3.58-8-8-8zm-2 18v-1h4v1h-4zm4.5-5.17V17h-5v-2.17A6.98 6.98 0 0 1 5 10a7 7 0 1 1 9.5 4.83z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">SoulChat</div>
+          <div class="link-secondary">soulchat.jp</div>
+        </div>
+      </a>
+
+      <a href="https://soulstudio.jp/ja/" target="_blank" rel="noopener" class="link">
+        <div class="link-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+          </svg>
+        </div>
+        <div>
+          <div class="link-primary">Company</div>
+          <div class="link-secondary">soulstudio.jp</div>
+        </div>
+      </a>
+
+    </div>
+
   </div>
 
-  <div class="divider"></div>
-
-  <div class="links">
-    <a href="mailto:won@soulstudio.jp" class="link-item">
-      <div class="link-icon link-icon--email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-        </svg>
-      </div>
-      <div class="link-label">
-        <span class="link-label-main">Email</span>
-        <span class="link-label-sub">won@soulstudio.jp</span>
-      </div>
-    </a>
-
-    <a href="https://www.facebook.com/jiheeone" target="_blank" rel="noopener" class="link-item">
-      <div class="link-icon link-icon--facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-      </div>
-      <div class="link-label">
-        <span class="link-label-main">Facebook</span>
-        <span class="link-label-sub">jiheeone</span>
-      </div>
-    </a>
-
-    <a href="https://www.linkedin.com/in/jiheeone/" target="_blank" rel="noopener" class="link-item">
-      <div class="link-icon link-icon--linkedin">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </div>
-      <div class="link-label">
-        <span class="link-label-main">LinkedIn</span>
-        <span class="link-label-sub">jiheeone</span>
-      </div>
-    </a>
-
-    <a href="https://soulchat.jp/" target="_blank" rel="noopener" class="link-item">
-      <div class="link-icon link-icon--soulchat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
-        </svg>
-      </div>
-      <div class="link-label">
-        <span class="link-label-main">SoulChat</span>
-        <span class="link-label-sub">soulchat.jp</span>
-      </div>
-    </a>
-
-    <a href="https://soulstudio.jp/ja/" target="_blank" rel="noopener" class="link-item">
-      <div class="link-icon link-icon--website">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
-        </svg>
-      </div>
-      <div class="link-label">
-        <span class="link-label-main">Company</span>
-        <span class="link-label-sub">soulstudio.jp</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="actions">
-    <button class="save-btn" onclick="downloadVCard()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
-      </svg>
-      連絡先を保存
-    </button>
+  <div class="footer-morse">
+    <div class="morse-line">.- . / -.-. ---. . .-.-. - / ... --- ..- .-.. ... - ..- -.. .. ---</div>
+    <div class="morse-line">- .-- / -.. .--. --- . .-. - / .-- -- . .-. ..- .-... . .-.. .-.-.</div>
   </div>
 </div>
 
@@ -289,9 +451,11 @@ function downloadVCard() {
     'VERSION:3.0',
     'FN:元 志喜',
     'N:元;志喜;;;',
-    'ORG:SoulStudio',
+    'ORG:SoulStudio株式会社',
     'TITLE:代表取締役CEO',
     'EMAIL;TYPE=WORK:won@soulstudio.jp',
+    'TEL;TYPE=CELL:+818067950977',
+    'ADR;TYPE=WORK:;;東京都文京区本郷 6-25-14;東京都;;113-0033;Japan',
     'URL;TYPE=WORK:https://soulstudio.jp/ja/',
     'URL;TYPE=pref:https://won.soulstudio.jp',
     'X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/jiheeone',
