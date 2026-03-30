@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>元 志喜 | SoulStudio</title>
+  <meta name="description" content="元 志喜 - SoulStudio 代表取締役CEO">
+  <meta property="og:title" content="元 志喜 | SoulStudio">
+  <meta property="og:description" content="SoulStudio 代表取締役CEO">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://won.soulstudio.jp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f8f8f8;
+      color: #1a1a1a;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      max-width: 400px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 48px 32px 32px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f0f0f0;
+      margin-bottom: 20px;
+    }
+
+    .name {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .title {
+      font-size: 13px;
+      color: #888;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .company {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .company-logo {
+      height: 18px;
+      width: auto;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 0 32px;
+    }
+
+    .links {
+      padding: 20px 32px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 14px;
+      font-weight: 400;
+      transition: background 0.15s ease;
+    }
+
+    .link-item:hover,
+    .link-item:active {
+      background: #f5f5f5;
+    }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .link-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .link-icon--email { background: #e8f4f8; }
+    .link-icon--email svg { color: #2196F3; }
+
+    .link-icon--facebook { background: #e8eaf6; }
+    .link-icon--facebook svg { color: #1877F2; }
+
+    .link-icon--linkedin { background: #e3f2fd; }
+    .link-icon--linkedin svg { color: #0A66C2; }
+
+    .link-icon--soulchat { background: #fce4ec; }
+    .link-icon--soulchat svg { color: #E91E63; }
+
+    .link-icon--website { background: #e8f5e9; }
+    .link-icon--website svg { color: #43A047; }
+
+    .link-label {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .link-label-main {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .link-label-sub {
+      font-size: 12px;
+      color: #aaa;
+      font-weight: 300;
+    }
+
+    .actions {
+      padding: 8px 32px 36px;
+    }
+
+    .save-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Noto Sans JP', sans-serif;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .save-btn:hover {
+      background: #333;
+    }
+
+    .save-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <!-- TODO: Replace with actual profile image -->
+    <img src="assets/won_profile_face.jpeg" alt="元 志喜" class="avatar">
+    <div class="name">元 志喜</div>
+    <div class="title">代表取締役CEO</div>
+    <div class="company">
+      <!-- TODO: Replace with actual company logo -->
+      <img src="assets/soulstudio_logo.png" alt="SoulStudio" class="company-logo">
+      <span>SoulStudio</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="links">
+    <a href="mailto:won@soulstudio.jp" class="link-item">
+      <div class="link-icon link-icon--email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+      <div class="link-label">
+        <span class="link-label-main">Email</span>
+        <span class="link-label-sub">won@soulstudio.jp</span>
+      </div>
+    </a>
+
+    <a href="https://www.facebook.com/jiheeone" target="_blank" rel="noopener" class="link-item">
+      <div class="link-icon link-icon--facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </div>
+      <div class="link-label">
+        <span class="link-label-main">Facebook</span>
+        <span class="link-label-sub">jiheeone</span>
+      </div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/jiheeone/" target="_blank" rel="noopener" class="link-item">
+      <div class="link-icon link-icon--linkedin">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </div>
+      <div class="link-label">
+        <span class="link-label-main">LinkedIn</span>
+        <span class="link-label-sub">jiheeone</span>
+      </div>
+    </a>
+
+    <a href="https://soulchat.jp/" target="_blank" rel="noopener" class="link-item">
+      <div class="link-icon link-icon--soulchat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
+        </svg>
+      </div>
+      <div class="link-label">
+        <span class="link-label-main">SoulChat</span>
+        <span class="link-label-sub">soulchat.jp</span>
+      </div>
+    </a>
+
+    <a href="https://soulstudio.jp/ja/" target="_blank" rel="noopener" class="link-item">
+      <div class="link-icon link-icon--website">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+        </svg>
+      </div>
+      <div class="link-label">
+        <span class="link-label-main">Company</span>
+        <span class="link-label-sub">soulstudio.jp</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="actions">
+    <button class="save-btn" onclick="downloadVCard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+      </svg>
+      連絡先を保存
+    </button>
+  </div>
+</div>
+
+<script>
+function downloadVCard() {
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:元 志喜',
+    'N:元;志喜;;;',
+    'ORG:SoulStudio',
+    'TITLE:代表取締役CEO',
+    'EMAIL;TYPE=WORK:won@soulstudio.jp',
+    'URL;TYPE=WORK:https://soulstudio.jp/ja/',
+    'URL;TYPE=pref:https://won.soulstudio.jp',
+    'X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/jiheeone',
+    'X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/jiheeone/',
+    'END:VCARD'
+  ].join('\r\n');
+
+  const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'won-jihee.vcf';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
